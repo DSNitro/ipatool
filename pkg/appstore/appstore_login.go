@@ -105,7 +105,13 @@ func (t *appstore) login(email, password, authCode, guid string) (Account, error
 		Password:            password,
 	}
 
-	data, err := json.Marshal(acc)
+	accDP := AccountDP{
+		PasswordToken:       res.Data.PasswordToken,
+		DirectoryServicesID: res.Data.DirectoryServicesID,
+		StoreFront:          sf,
+	}
+
+	data, err := json.Marshal(accDP)
 	if err != nil {
 		return Account{}, fmt.Errorf("failed to marshal json: %w", err)
 	}

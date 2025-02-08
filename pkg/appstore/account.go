@@ -8,3 +8,9 @@ type Account struct {
 	StoreFront          string `json:"storeFront,omitempty"`
 	Password            string `json:"password,omitempty"`
 }
+
+type AccountDP struct {
+	PasswordToken       string `json:"passwordToken,omitempty"`
+	DirectoryServicesID string `json:"directoryServicesIdentifier,omitempty"`
+	StoreFront          string `json:"storeFront,omitempty"`
+}
