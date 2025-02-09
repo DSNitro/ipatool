@@ -59,6 +59,19 @@ func newCookieJar(machine machine.Machine) http.CookieJar {
 	}))
 }
 
+func rmCookieJar(machine machine.Machine) error {
+	cookieJarPath := filepath.Join(machine.HomeDirectory(), ConfigDirectoryName, CookieJarFileName)
+	if _, err := os.Stat(cookieJarPath); os.IsNotExist(err) {
+		return fmt.Errorf("cookie file does not exist: %s", cookieJarPath)
+	}
+
+	if err := os.Remove(cookieJarPath); err != nil {
+		return fmt.Errorf("failed remove cookie jar file: %w", err)
+	}
+
+	return nil
+}
+
 // newKeychain returns a new keychain instance.
 func newKeychain(machine machine.Machine, logger log.Logger, interactive bool) keychain.Keychain {
 	ring := util.Must(keyring.Open(keyring.Config{

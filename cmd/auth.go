@@ -161,6 +161,13 @@ func revokeCmd() *cobra.Command {
 				return err
 			}
 
+			// Удаляем файл cookie
+			if err := rmCookieJar(dependencies.Machine); err != nil {
+				dependencies.Logger.Log().Err(err).Msg("failed to remove cookie jar file")
+			} else {
+				dependencies.Logger.Log().Msg("cookie jar file removed successfully")
+			}
+
 			dependencies.Logger.Log().Bool("success", true).Send()
 
 			return nil
